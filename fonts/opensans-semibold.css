@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'OpenSansSemibold';
+    src: url('opensans-semibold.eot');
+    src: url('opensans-semibold.eot') format('embedded-opentype'),
+         url('opensans-semibold.woff') format('woff'),
+         url('opensans-semibold.ttf') format('truetype'),
+         url('opensans-semibold.svg#OpenSansSemibold') format('svg');
+}
