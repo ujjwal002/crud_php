@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
 
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox" style="font-size: 14px; margin-bottom: 10px;">
                             <span>Have an account ? <a href="./login.php">Login.</a></span>
                         </div>
                         <button type="submit" class="btn_login">Submit</button>

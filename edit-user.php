@@ -172,7 +172,17 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
 
 			<div class="right_side">
 				<ul>
-					<li>Welcome Admin</li>
+					<li>
+						<?php
+						session_start();
+						if (isset($_SESSION["admin_name"])) {
+							$user_name = $_SESSION["admin_name"];
+							echo "Welcome, $user_name!";
+						} else {
+							echo "Welcome, User!";
+						}
+						?>
+					</li>
 					<li><a href="./logout.php">Log Out</a></li>
 				</ul>
 			</div>
@@ -209,7 +219,7 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
 						</ul>
 
 					</li>
-					<li><a href="" class="Setting">Setting</a>
+					<!-- <li><a href="" class="Setting">Setting</a>
 						<ul class="submenu">
 							<li><a href="">Chnage Password</a></li>
 							<li><a href="">Mange Contact Request</a></li>
@@ -225,7 +235,7 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
 							<li><a href="#">Manage Limits</a></li>
 						</ul>
 
-					</li>
+					</li> -->
 				</ul>
 			</div>
 			<div class="right_side_content">
@@ -323,7 +333,7 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
 							</div>
 							<div class="input-field">
 								<div class="select">
-									<select name="designation" id="designation" >
+									<select name="designation" id="designation">
 										<option selected disabled>Select Designation</option>
 										<option value="UI Designer" <?= (isset($designation) && $designation == "Backend developer") ? "selected" : ""; ?>>
 											Backend developer

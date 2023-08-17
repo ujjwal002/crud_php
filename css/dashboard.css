@@ -46,11 +46,15 @@ body {
   padding: 0;
   font-family: 'OpenSansRegular';
   height: 100vh;
+  /* position: relative; */
 }
 div,li,ul,a{
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
+}
+.big-wrapper{
+  height: 100vh;
 }
 .wrapper{
 	width:1100px;
@@ -416,7 +420,7 @@ span.right {
 	font-size:14px;
 	width:100%;
 	background:#1A1A1A;
-  position:absolute;
+  position:fixed;
   bottom:0;
   /* left:0; */
   height:50px;
@@ -958,6 +962,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', end
 .text-danger{
   display: block;
   color: red;
+  font-size: 5pxpx;
 }
 .page-item{
   margin: 5px;
@@ -965,9 +970,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', end
 .page-item:active{
   background-color: "orange";
 }
-.form-group input.is-invalid {
+/* .form-group input.is-invalid {
   border-color: #dc3545;
-}
+} */
 .form-group .error-message {
   color: #dc3545;
   font-size: 14px;
@@ -981,4 +986,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', end
   right: 5px;
   top: 0;
   display: none;
+}
+.text-center{
+  color: red;
+  align-items: center;
+  /* width: 500px; */
+}
+.page-item.active .page-link {
+  background-color: #FF651B; /* Change this to your preferred background color */
+  color: #ffffff; /* Change this to your preferred text color */
+  border-color: #FF651B; /* Change this to your preferred border color */
+}
+
+.login-button {
+  cursor: pointer;
+}
+
+.login-button.disabled {
+  cursor: not-allowed;
+  /* background-color: #008000; */
+  opacity: 0.5;
+}
+
+/* .login-button:hover {
+  opacity: 0.8;
+  background-color: rgb(173, 214, 169);
+} */
+.is-invalid {
+  border: 1px solid red;
+  
 }

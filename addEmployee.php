@@ -65,14 +65,14 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
             $date = $_POST["date"];
         }
 
-    //     echo $fname_err;
-    // echo $lname_err;
-    // echo $email_err;
-    // echo $age_err;
-    // echo $gender_err;
-    // echo $designation_err;
-    // echo $date_err;
-    // die();
+        //     echo $fname_err;
+        // echo $lname_err;
+        // echo $email_err;
+        // echo $age_err;
+        // echo $gender_err;
+        // echo $designation_err;
+        // echo $date_err;
+        // die();
         // echo $email;
         // die("done");
         if (empty($fname_err) && empty($lname_err) && empty($email_err) && empty($age_err) && empty($gender_err) && empty($designation_err) && empty($date_err)) {
@@ -95,7 +95,7 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                     echo "<script>" . "window.location.href='./list-users.php'" . "</script>";
                     exit;
                 } else {
-                    $form_err="please submit the correct and valid data";
+                    $form_err = "please submit the correct and valid data";
                 }
             }
 
@@ -136,7 +136,17 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
 
             <div class="right_side">
                 <ul>
-                    <li>Welcome Admin</li>
+                    <li>
+                        <?php
+                        session_start();
+                        if (isset($_SESSION["admin_name"])) {
+                            $user_name = $_SESSION["admin_name"];
+                            echo "Welcome, $user_name!";
+                        } else {
+                            echo "Welcome, User!";
+                        }
+                        ?>
+                    </li>
                     <li><a href="./logout.php">Log Out</a></li>
                 </ul>
             </div>
@@ -198,7 +208,7 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                     <!-- <div class="error-message-div error-msg"><img
                             src="images/unsucess-msg.png"><strong>UnSucess!</strong> Your Message hasn't been Send
                     </div> -->
-                    
+
 
                     <form class="form-edit" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-row">
@@ -206,8 +216,8 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                                 <label>First Name : <span></span></label>
                             </div>
                             <div class="input-field">
-                                <input type="text" class="search-box" name="fname" id="fname"
-                                    placeholder="Enter your first name" value="<?= $fname; ?>">
+                                <input type="text" class="search-box" name="fname" id="fname" placeholder=""
+                                    value="<?= $fname; ?>">
 
                                 <small class="text-danger">
                                     <?= $fname_err; ?>
@@ -219,8 +229,8 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                                 <label>Last Name : <span>*</span></label>
                             </div>
                             <div class="input-field">
-                                <input type="text" class="search-box" name="lname" id="lname"
-                                    placeholder="Please enter your last name" value="<?= $lname; ?>">
+                                <input type="text" class="search-box" name="lname" id="lname" placeholder=""
+                                    value="<?= $lname; ?>">
                                 <small class="text-danger">
                                     <?= $lname_err; ?>
                                 </small>
@@ -231,8 +241,8 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                                 <label>Email : <span>*</span></label>
                             </div>
                             <div class="input-field">
-                                <input type="text" class="search-box" name="email" id="email"
-                                    placeholder="Please enter your email" value="<?= $email; ?>">
+                                <input type="text" class="search-box" name="email" id="email" placeholder=""
+                                    value="<?= $email; ?>">
                                 <small class="text-danger">
                                     <?= $email_err; ?>
                                 </small>
@@ -243,8 +253,8 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                                 <label>Age: <span>*</span></label>
                             </div>
                             <div class="input-field">
-                                <input type="text" class="search-box" name="age" id="age"
-                                    placeholder="Please enter your age" value="<?= $age; ?>">
+                                <input type="text" class="search-box" name="age" id="age" placeholder=""
+                                    value="<?= $age; ?>">
                                 <small class="text-danger">
                                     <?= $age_err; ?>
                                 </small>
@@ -275,7 +285,7 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
                                 <label>joining_date: <span>*</span></label>
                             </div>
                             <div class="input-field">
-                                <input type="date" class="search-box" name="date" id="date" value="<?= $date; ?>"/>
+                                <input type="date" class="search-box" name="date" id="date" value="<?= $date; ?>" />
                                 <small class="text-danger">
                                     <?= $date_err; ?>
                                 </small>
@@ -333,6 +343,64 @@ if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true) {
         </div>
 
     </div>
+    <script>
+      $(document).ready(function () {
+        function isValidEmail(email) {
+          var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailPattern.test(email);
+        }
+        function isValidPhone(phone){
+            if(phone.length ==10){
+                return true;
+            }
+        }
+
+        function showErrorMessage(input, message) {
+          input.addClass("is-invalid");
+          input.next(".error-message").remove();
+          $("<small class='text-danger size error-message'>" + message + "</small>").insertAfter(input);
+          updateLoginButtonStatus();
+        }
+
+        function clearErrorMessage(input) {
+          input.removeClass("is-invalid");
+          input.next(".error-message").remove();
+          updateLoginButtonStatus();
+        }
+        function showErrorStyling(input) {
+          input.addClass("is-invalid");
+        }
+
+        // Function to clear error styling for an input field
+        function clearErrorStyling(input) {
+          input.removeClass("is-invalid");
+        }
+
+        
+
+        $("#email_val").on("input", function () {
+          var email = $(this).val();
+          if (!email) {
+            showErrorMessage($(this), "Email is required");
+          } else if (!isValidEmail(email)) {
+            showErrorMessage($(this), "Invalid email format");
+          } else {
+            clearErrorMessage($(this));
+          }
+        });
+
+        $("#password_val").on("input", function () {
+          var password = $(this).val();
+          if (!password) {
+            showErrorMessage($(this), "Password is required");
+          } else {
+            clearErrorMessage($(this));
+          }
+        });
+
+      });
+
+    </script>
 
 </body>
 
